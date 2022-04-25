@@ -26,6 +26,7 @@
   .cellWithImg {
     display: flex;
     align-items: center;
+    gap: 15px;
 
     .cellImg {
       width: 32px;
@@ -57,7 +58,7 @@
   .cellAction {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 50px;
 
     .viewButton {
       padding: 2px 5px;

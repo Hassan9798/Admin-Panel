@@ -6,8 +6,19 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
+import { useEffect, useState } from "react";
+import {userRequest} from '../../makeRequest'
+import {format} from 'timeago.js';
 const List = () => {
+  const [orders,setOrders]=useState([]);
+  const getOrders=async()=>{
+    const res= await userRequest.get('/order');
+    setOrders(res.data);
+  }
+  useEffect(()=>{
+    getOrders();
+  },[])
+  // console.log(orders[0].products._id);
   const rows = [
     {
       id: 1143155,
@@ -66,30 +77,33 @@ const List = () => {
         <TableHead>
           <TableRow>
             <TableCell className="tableCell">Tracking ID</TableCell>
-            <TableCell className="tableCell">Product</TableCell>
+            {/* <TableCell className="tableCell">Product</TableCell> */}
             <TableCell className="tableCell">Customer</TableCell>
             <TableCell className="tableCell">Date</TableCell>
             <TableCell className="tableCell">Amount</TableCell>
-            <TableCell className="tableCell">Payment Method</TableCell>
+            {/* <TableCell className="tableCell">Payment Method</TableCell> */}
             <TableCell className="tableCell">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell className="tableCell">{row.id}</TableCell>
+           {orders.map((order) => (
+            <TableRow key={order._id}>
+              <TableCell className="tableCell">{order._id}</TableCell>
+              {/* {order && order.products.map((p)=>(
+
+                <TableCell className="tableCell" key={p._id}> */}
+                {/* <div className="cellWrapper">  */}
+                  {/* <img src={row.img} alt="" className="image" /> */}
+                  {/* {p._id} */}
+                {/* </div> */}
+              {/* </TableCell>
+                ))}  */} 
+              <TableCell className="tableCell">{order.userId}</TableCell>
+              <TableCell className="tableCell">{format(order.createdAt)}</TableCell>
+              <TableCell className="tableCell">{order.amount}</TableCell>
+              {/* <TableCell className="tableCell">{row.method}</TableCell> */}
               <TableCell className="tableCell">
-                <div className="cellWrapper">
-                  <img src={row.img} alt="" className="image" />
-                  {row.product}
-                </div>
-              </TableCell>
-              <TableCell className="tableCell">{row.customer}</TableCell>
-              <TableCell className="tableCell">{row.date}</TableCell>
-              <TableCell className="tableCell">{row.amount}</TableCell>
-              <TableCell className="tableCell">{row.method}</TableCell>
-              <TableCell className="tableCell">
-                <span className={`status ${row.status}`}>{row.status}</span>
+                <span className={`status ${order.status}`}>{order.status}</span>
               </TableCell>
             </TableRow>
           ))}

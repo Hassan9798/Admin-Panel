@@ -1,13 +1,15 @@
+import { Avatar } from "@mui/material";
 export const userColumns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "_id", headerName: "ID", width: 160 },
   {
     field: "user",
     headerName: "User",
     width: 230,
     renderCell: (params) => {
+
       return (
-        <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
+        <div className="cellWithImg" >
+          <Avatar src="/broken-image.jpg"  sx={{ width: 24, height: 24 }}/>
           {params.row.username}
         </div>
       );
@@ -20,23 +22,59 @@ export const userColumns = [
   },
 
   {
-    field: "age",
-    headerName: "Age",
-    width: 100,
+    field: "createdAt",
+    headerName: "Date",
+    width: 200,
   },
+  // {
+  //   field: "status",
+  //   headerName: "Status",
+  //   width: 160,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cellWithStatus ${params.row.status}`}>
+  //         {params.row.status}
+  //       </div>
+  //     );
+  //   },
+  // },
+];
+export const productColumns = [
+  { field: "_id", headerName: "ID", width: 160 },
   {
-    field: "status",
-    headerName: "Status",
-    width: 160,
+    field: "title",
+    headerName: "Title",
+    width: 230,
     renderCell: (params) => {
+
       return (
-        <div className={`cellWithStatus ${params.row.status}`}>
-          {params.row.status}
+        <div className="cellWithImg" >
+          <img src={"http://localhost:4000/"+params.row.img} className='cellImg'/>
+          {/* <Avatar src="/broken-image.jpg"  sx={{ width: 24, height: 24 }}/> */}
+          {params.row.title}
         </div>
       );
     },
   },
+  {
+    field: "inStock",
+    headerName: "stock",
+    width: 150,
+  },
+
+  {
+    field: "createdAt",
+    headerName: "Date",
+    width: 200,
+  },
+  {
+    field: "price",
+    headerName: "Price",
+    width: 100,
+   
+  }
 ];
+
 
 //temporary data
 export const userRows = [
